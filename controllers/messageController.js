@@ -33,20 +33,19 @@ async function sentMessagesGet (req, res) {
         if(err){
             res.sendStatus(403)
         }else{
-          console.log(authData)
           const authorid = authData.user.id;
           const messages = await db.findSentMessages(authorid);
           res.json(messages);
         }   
     })
 }
-async function recievedMessagesGet (req, res) {
+async function receivedMessagesGet (req, res) {
     jwt.verify(req.token,process.env.SECRET,async (err,authData)=>{
         if(err){
             res.sendStatus(403)
         }else{
-          const recieverid = authData.user.id;
-          const messages = await db.findRecievedMessages(recieverid);
+          const receiverid = authData.user.id;
+          const messages = await db.findReceivedMessages(receiverid);
           res.json(messages);
         }   
     })
@@ -64,8 +63,8 @@ newMessageCreate =[
                 if (!errors.isEmpty()) {
                     return res.status(400).json(errors.array())
                 }
-                let {text,recieverid} = req.body;
-                await db.createMessage(text,recieverid,authorid);
+                let {text,receiverid} = req.body;
+                await db.createMessage(text,Number(receiverid),authorid);
                 res.sendStatus(200);
             }
         })
@@ -98,7 +97,6 @@ async function messageDelete (req, res) {
             res.sendStatus(403)
         }else{
             const messageid = Number(req.params.messageid);
-            const user = await db.findUserById(userid);
             await db.deleteMessage(messageid);
             res.sendStatus(200);
         }   
@@ -107,7 +105,7 @@ async function messageDelete (req, res) {
 module.exports = {
     allMessagesGet,
     sentMessagesGet,
-    recievedMessagesGet,
+    receivedMessagesGet,
     newMessageCreate,
     messageUpdate,
     messageDelete

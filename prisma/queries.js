@@ -16,7 +16,7 @@ async function findAllUsers() {
     const users = await prisma.user.findMany({
         include: {
             sentMessages:true,
-            recievedMessages:true,
+            receivedMessages:true,
             profile:true
         }
     })
@@ -26,7 +26,7 @@ async function findUserByUsername(username) {
     const user = await prisma.user.findUnique({
         include: {
             sentMessages:true,
-            recievedMessages:true,
+            receivedMessages:true,
             profile:true
         },
         where: {
@@ -39,7 +39,7 @@ async function findUserById(id) {
     const user = await prisma.user.findUnique({
         include: {
             sentMessages:true,
-            recievedMessages:true,
+            receivedMessages:true,
             profile:true
         },
         where: {
@@ -102,7 +102,7 @@ async function findAllMessages() {
     const messages = await prisma.message.findMany({
         include: {
             author:true,
-            reciever:true
+            receiver:true
         }
     })
     return messages
@@ -114,29 +114,29 @@ async function findSentMessages(authorId) {
         },
         include: {
             author:true,
-            reciever:true
+            receiver:true
         }
     })
     return messages
 }
-async function findRecievedMessages(recieverId) {
+async function findReceivedMessages(receiverId) {
     const messages = await prisma.message.findMany({
         where: {
-            recieverId,
+            receiverId,
         },
         include: {
             author:true,
-            reciever:true
+            receiver:true
         }
     })
     return messages
 }
-async function createMessage(text,recieverId,authorId) {
+async function createMessage(text,receiverId,authorId) {
     await prisma.message.create({
         data: {
             text,
             authorId,
-            recieverId
+            receiverId
         }
       })
     return
@@ -173,7 +173,7 @@ module.exports = {
     udpateProfile,
     findAllMessages,
     findSentMessages,
-    findRecievedMessages,
+    findReceivedMessages,
     createMessage,
     updateMessage,
     deleteMessage

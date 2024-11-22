@@ -20,7 +20,7 @@ model User {
   password          String
   profile           Profile?
   sentMessages      Message[]  @relation("SentMessages")
-  recievedMessages  Message[]  @relation("RecievedMessages")
+  receivedMessages  Message[]  @relation("ReceivedMessages")
 }
 model Profile{
   id          Int    @id @default(autoincrement())
@@ -30,11 +30,12 @@ model Profile{
   userId      Int    @unique  
 }
 model Message{
+  id          Int    @id @default(autoincrement())
   text        String
   createdAt   DateTime @default(now())
   author      User     @relation("SentMessages", fields: [authorId], references: [id])
   authorId    Int
-  reciever    User     @relation("RecievedMessages", fields: [recieverId], references: [id])
-  recieverId  Int      @unique
+  receiver    User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  receiverId  Int      
 
 }
