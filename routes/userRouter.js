@@ -4,14 +4,15 @@ const userController = require("../controllers/userController");
 const verifyToken = require("../middleware/verifyToken");
 
 
-userRouter.post("/signup", userController.newUserCreate);//done
-userRouter.post("/login", userController.logIn);//done
-userRouter.delete("/users/:userid",verifyToken, userController.userDelete);//done
+userRouter.post("/signup", userController.newUserCreate);
+userRouter.post("/login", userController.logIn);
+userRouter.delete("/users/:userid",verifyToken, userController.userDelete);
 
 
-userRouter.get("/profiles", userController.allProfilesGet);//done -not postman tested
-userRouter.get("/profiles/:profileid",verifyToken, userController.singleProfileGet);//done -not postman tested
-userRouter.put("/profiles/:profileid",verifyToken, userController.profileUpdate);//done -not postman tested
+userRouter.get("/profiles",verifyToken, userController.allProfilesGet);
+userRouter.get("/profiles/:profileid",verifyToken, userController.singleProfileGet);
+userRouter.post("/profiles/:userid",verifyToken, userController.profilePost);
+userRouter.put("/profiles/:profileid",verifyToken, userController.profileUpdate);
 
 
 

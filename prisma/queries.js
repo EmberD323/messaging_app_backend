@@ -77,8 +77,18 @@ async function findProfile(profileid) {
     })
     return user
 }
+async function createProfile(bio,pictureURL,userId) {
+    await prisma.profile.create({
+        data: {
+            bio,
+            pictureURL,
+            userId
+        }
+      })
+    return
+}
 async function udpateProfile(bio,pictureURL,id) {
-    await prisma.post.update({
+    await prisma.profile.update({
         where: {
             id,
         },
@@ -97,5 +107,6 @@ module.exports = {
     deleteUser,
     findAllProfiles,
     findProfile,
+    createProfile,
     udpateProfile
 }

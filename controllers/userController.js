@@ -44,9 +44,7 @@ const validateProfile= [
   body("bio").trim()
     .escape()
     .isLength({ min: 1, max: 200 }).withMessage(`Bio must be between 1 and 200 characters.`),
-  body("pictureURL").trim()
-      .escape()
-      .isURL().withMessage(`Picture must be URL`),
+
 ];
 newUserCreate = [
     validateSignUp,
@@ -135,7 +133,26 @@ async function singleProfileGet (req, res) {
       }   
   })
 }
-
+profilePost =[
+  validateProfile,
+  async function (req, res) {
+      jwt.verify(req.token,process.env.SECRET,async (err,authData)=>{
+          if(err){
+              res.sendStatus(403)
+          }else{
+              const userid = Number(req.params.userid);
+              const errors = validationResult(req);
+              if (!errors.isEmpty()) {
+                  return res.status(400).json(errors.array())
+              }
+              let {bio,pictureURL} = req.body;
+              
+              await db.createProfile(bio,pictureURL,userid);
+              res.sendStatus(200);
+          }
+      })
+  }
+]
 
 profileUpdate =[
   validateProfile,
@@ -180,6 +197,7 @@ module.exports = {
     userDelete,
     allProfilesGet,
     singleProfileGet,
+    profilePost,
     profileUpdate,
     
 };
