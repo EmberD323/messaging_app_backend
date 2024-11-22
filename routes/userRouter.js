@@ -11,7 +11,7 @@ userRouter.delete("/users/:userid",verifyToken, userController.userDelete);
 
 userRouter.get("/profiles",verifyToken, userController.allProfilesGet);
 userRouter.get("/profiles/:profileid",verifyToken, userController.singleProfileGet);
-userRouter.post("/profiles/:userid",verifyToken, userController.profilePost);
+userRouter.post("/profiles/",verifyToken, userController.profilePost);
 userRouter.put("/profiles/:profileid",verifyToken, userController.profileUpdate);
 
 

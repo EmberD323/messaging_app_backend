@@ -98,7 +98,7 @@ async function userDelete (req, res) {
       if(err){
           res.sendStatus(403)
       }else{
-        const userid = Number(req.params.userid);
+        const userid = authData.user.id;
         const user = await db.findUserById(userid);
         if (!user) {
           res.status(400).send('User doesnt exist');
@@ -140,7 +140,7 @@ profilePost =[
           if(err){
               res.sendStatus(403)
           }else{
-              const userid = Number(req.params.userid);
+              const userid = authData.user.id;
               const errors = validationResult(req);
               if (!errors.isEmpty()) {
                   return res.status(400).json(errors.array())
@@ -179,17 +179,6 @@ profileUpdate =[
       })
   }
 ]
-
-
-// async function Name (req, res) {
-//   jwt.verify(req.token,process.env.SECRET,async (err,authData)=>{
-//       if(err){
-//           res.sendStatus(403)
-//       }else{
-        
-//       }   
-//   })
-// }
 
 module.exports = {
     newUserCreate,

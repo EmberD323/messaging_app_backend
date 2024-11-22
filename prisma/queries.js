@@ -54,7 +54,6 @@ async function deleteUser(userid) {
           id:userid
         },
     })
-
     return user
 }
 async function findAllProfiles() {
@@ -99,6 +98,69 @@ async function udpateProfile(bio,pictureURL,id) {
       })
     return
 }
+async function findAllMessages() {
+    const messages = await prisma.message.findMany({
+        include: {
+            author:true,
+            reciever:true
+        }
+    })
+    return messages
+}
+async function findSentMessages(authorId) {
+    const messages = await prisma.message.findMany({
+        where: {
+            authorId,
+        },
+        include: {
+            author:true,
+            reciever:true
+        }
+    })
+    return messages
+}
+async function findRecievedMessages(recieverId) {
+    const messages = await prisma.message.findMany({
+        where: {
+            recieverId,
+        },
+        include: {
+            author:true,
+            reciever:true
+        }
+    })
+    return messages
+}
+async function createMessage(text,recieverId,authorId) {
+    await prisma.message.create({
+        data: {
+            text,
+            authorId,
+            recieverId
+        }
+      })
+    return
+}
+
+async function updateMessage(text,id) {
+    await prisma.message.update({
+        where: {
+            id,
+        },
+        data: {
+            text
+        }
+      })
+    return
+}
+async function deleteMessage(id) {
+     await prisma.message.delete({
+        where: {
+          id
+        },
+    })
+    return 
+}
 module.exports = {
     createUser,
     findAllUsers,
@@ -108,5 +170,11 @@ module.exports = {
     findAllProfiles,
     findProfile,
     createProfile,
-    udpateProfile
+    udpateProfile,
+    findAllMessages,
+    findSentMessages,
+    findRecievedMessages,
+    createMessage,
+    updateMessage,
+    deleteMessage
 }

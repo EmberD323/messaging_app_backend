@@ -13,7 +13,7 @@ const userRouter = require("./routes/userRouter");
 const messageRouter = require("./routes/messageRouter");
 
 app.use("/", userRouter);
-// app.use("/messages", messageRouter);
+app.use("/messages", messageRouter);
 
 const PORT = 5000;
 app.listen(PORT, () => {
