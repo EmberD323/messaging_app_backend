@@ -28,7 +28,6 @@ const validateSignUp= [
     body('passwordConfirm').custom((value, { req }) => {
           return value === req.body.password;
       }).withMessage(`Passwords must match.`),
-    body("author").isBoolean().withMessage(`Response must be true or false`),
 ];
 const validateLogIn= [
   body("username")
@@ -57,9 +56,7 @@ newUserCreate = [
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(400).json({
-                    errors: errors.array(),
-                    body: req.body
-                    
+                    errors: errors.array(),                    
                 });
             }
             await db.createUser(tools.capitalize(first_name),tools.capitalize(last_name),username,hashedPassword);
@@ -176,5 +173,5 @@ module.exports = {
     allProfilesGet,
     singleProfileGet,
     profileUpdate,
-    profileDelete
+    
 };

@@ -40,13 +40,13 @@ const jwt = require("jsonwebtoken");
 
 
 
-module.exports = {
-    allMessagesGet,
-    sentMessagesGet,
-    recievedMessagesGet,
-    newMessageCreate,
-    messageUpdate,
-    messageDelete
+// module.exports = {
+//     allMessagesGet,
+//     sentMessagesGet,
+//     recievedMessagesGet,
+//     newMessageCreate,
+//     messageUpdate,
+//     messageDelete
 
   
-};
+// };

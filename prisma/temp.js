@@ -3,9 +3,15 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 async function main() {
-
-    const posts =await prisma.post.findMany()
-    console.log(posts)
+  //all users
+  const users = await prisma.user.findMany({
+    include: {
+        sentMessages:true,
+        recievedMessages:true,
+        profile:true
+    }
+  })
+    console.log(users)
 }
 
 

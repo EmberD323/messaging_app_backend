@@ -1,7 +1,17 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
-
+async function createUser(first_name,last_name,username,password) {
+    await prisma.user.create({
+        data: {
+            first_name,
+            last_name,
+            username,
+            password,
+        }})
+  
+    return 
+}
 async function findAllUsers() {
     const users = await prisma.user.findMany({
         include: {
@@ -66,6 +76,7 @@ async function udpateProfile(bio,pictureURL,id) {
     return
 }
 module.exports = {
+    createUser,
     findAllUsers,
     findUserByUsername,
     deleteUser,
