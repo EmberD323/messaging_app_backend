@@ -9,11 +9,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 
 //routes
-const indexRouter = require("./routes/indexRouter");
-const postRouter = require("./routes/postRouter");
+const userRouter = require("./routes/userRouter");
+const messageRouter = require("./routes/messageRouter");
 
-app.use("/", indexRouter);
-app.use("/posts", postRouter);
+app.use("/", userRouter);
+app.use("/messages", messageRouter);
 
 const PORT = 5000;
 app.listen(PORT, () => {

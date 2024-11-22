@@ -24,8 +24,8 @@ model User {
 }
 model Profile{
   id          Int    @id @default(autoincrement())
-  bio         String
-  pictureURL  String
+  bio         String? 
+  pictureURL  String?  
   user        User   @relation(fields: [userId], references: [id])
   userId      Int    @unique  
 }

@@ -5,12 +5,71 @@ const prisma = new PrismaClient()
 async function findAllUsers() {
     const users = await prisma.user.findMany({
         include: {
-            posts: true,
+            sentMessages:true,
+            recievedMessages:true,
+            profile:true
         }
     })
     return users
 }
+async function findUserByUsername(username) {
+    const user = await prisma.user.findUnique({
+        include: {
+            sentMessages:true,
+            recievedMessages:true,
+            profile:true
+        },
+        where: {
+          username,
+        },
+    })
+    return user
+}
+async function deleteUser(userid) {
+    const user = await prisma.user.delete({
+        where: {
+          id:userid
+        },
+    })
+    return user
+}
+async function findAllProfiles() {
+    const profiles = await prisma.profile.findMany({
+        include: {
+            user:true,
+        }
+    })
+    return profiles
+}
 
+async function findProfile(profileid) {
+    const user = await prisma.profile.findUnique({
+        include: {
+            user:true
+        },
+        where: {
+          id:profileid,
+        },
+    })
+    return user
+}
+async function udpateProfile(bio,pictureURL,id) {
+    await prisma.post.update({
+        where: {
+            id,
+        },
+        data: {
+            bio,
+            pictureURL,
+        }
+      })
+    return
+}
 module.exports = {
     findAllUsers,
+    findUserByUsername,
+    deleteUser,
+    findAllProfiles,
+    findProfile,
+    udpateProfile
 }
