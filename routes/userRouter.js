@@ -5,8 +5,8 @@ const verifyToken = require("../middleware/verifyToken");
 
 
 userRouter.post("/signup", userController.newUserCreate);//done
-userRouter.post("/login", userController.logIn);//done -not postman tested
-userRouter.delete("/users/:userid", userController.userDelete);//done -not postman tested
+userRouter.post("/login", userController.logIn);//done
+userRouter.delete("/users/:userid",verifyToken, userController.userDelete);//done
 
 
 userRouter.get("/profiles", userController.allProfilesGet);//done -not postman tested

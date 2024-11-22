@@ -35,12 +35,26 @@ async function findUserByUsername(username) {
     })
     return user
 }
+async function findUserById(id) {
+    const user = await prisma.user.findUnique({
+        include: {
+            sentMessages:true,
+            recievedMessages:true,
+            profile:true
+        },
+        where: {
+          id,
+        },
+    })
+    return user
+}
 async function deleteUser(userid) {
     const user = await prisma.user.delete({
         where: {
           id:userid
         },
     })
+
     return user
 }
 async function findAllProfiles() {
@@ -79,6 +93,7 @@ module.exports = {
     createUser,
     findAllUsers,
     findUserByUsername,
+    findUserById,
     deleteUser,
     findAllProfiles,
     findProfile,

@@ -75,6 +75,7 @@ logIn = [
       });
     }
     const user = await db.findUserByUsername(req.body.username);
+    console.log(user)
     bcrypt.compare(req.body.password, user.password, async (err,result) => {
       if(result == false){
         const errorsarray = {errors:[{msg:'Incorrect password'}]}
@@ -100,8 +101,15 @@ async function userDelete (req, res) {
           res.sendStatus(403)
       }else{
         const userid = Number(req.params.userid);
-        await db.deleteUser(userid);
-        res.sendStatus(200);
+        const user = await db.findUserById(userid);
+        if (!user) {
+          res.status(400).send('User doesnt exist');
+        }
+        else{
+          await db.deleteUser(userid);
+          res.sendStatus(200);
+        }
+        
       }   
   })
 }
