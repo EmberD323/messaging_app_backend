@@ -111,13 +111,13 @@ async function userDelete (req, res) {
       }   
   })
 }
-async function allProfilesGet (req, res) {
+async function userProfileGet (req, res) {
   jwt.verify(req.token,process.env.SECRET,async (err,authData)=>{
       if(err){
           res.sendStatus(403)
       }else{
-        const profiles = await db.findAllProfiles();
-        res.json(profiles);
+
+        res.json(authData.profile);
       }   
   })
 }
