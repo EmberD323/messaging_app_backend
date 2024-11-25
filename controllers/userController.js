@@ -116,6 +116,7 @@ async function userProfileGet (req, res) {
       if(err){
           res.sendStatus(403)
       }else{
+        console.log(authData)
 
         res.json(authData.profile);
       }   
