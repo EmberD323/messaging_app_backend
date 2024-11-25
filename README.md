@@ -13,3 +13,5 @@ CREATE DATABASE name;
 \l
 \c dbname
 
+deployed:https://messaging-app-backend-a915.onrender.com/
+

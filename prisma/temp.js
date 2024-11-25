@@ -4,14 +4,18 @@ const prisma = new PrismaClient()
 
 async function main() {
   //all users
-  const users = await prisma.user.findMany({
-    include: {
-        sentMessages:true,
-        recievedMessages:true,
-        profile:true
-    }
+  // const users = await prisma.user.findMany({
+  //   include: {
+  //       sentMessages:true,
+  //       recievedMessages:true,
+  //       profile:true
+  //   }
+  // })
+ await prisma.message.deleteMany({
   })
-    console.log(users)
+  await prisma.user.deleteMany({
+  })
+    
 }
 
 
