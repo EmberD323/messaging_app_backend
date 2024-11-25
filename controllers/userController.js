@@ -184,7 +184,7 @@ module.exports = {
     newUserCreate,
     logIn,
     userDelete,
-    allProfilesGet,
+    userProfileGet,
     singleProfileGet,
     profilePost,
     profileUpdate,
