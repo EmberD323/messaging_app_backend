@@ -140,14 +140,14 @@ async function findReceivedMessages(receiverId) {
     return messages
 }
 async function createMessage(text,receiverId,authorId) {
-    await prisma.message.create({
+    const message = await prisma.message.createManyAndReturn({
         data: {
             text,
             authorId,
             receiverId
         }
       })
-    return
+    return message
 }
 
 async function updateMessage(text,id) {

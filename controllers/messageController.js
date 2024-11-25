@@ -65,8 +65,8 @@ newMessageCreate =[
                 }
                 let {text,receiverid} = req.body;
                 console.log(req.body)
-                await db.createMessage(text,Number(receiverid),authorid);
-                res.sendStatus(200);
+                let newMessage = await db.createMessage(text,Number(receiverid),authorid);
+                res.status(200).json(newMessage)
             }
         })
     }
