@@ -119,6 +119,7 @@ async function userProfileGet (req, res) {
       }else{
         userID = authData.user.id;
         const profile = await db.findProfile(userID)
+        console.log(profile)
         res.json(profile);
       }   
   })
