@@ -164,7 +164,7 @@ profilePost =[
                 await db.createProfile(bio,supabasePath,userid);
                 console.log("done")
 
-                return res.status(200)
+                return res.sendStatus(200)
               }
               
           }
