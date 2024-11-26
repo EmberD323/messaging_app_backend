@@ -161,7 +161,7 @@ profilePost =[
               const { data, error } = await supabase.storage
               .from('profile_pics')
               .upload(supabasePath, req.file.buffer, {
-                  upsert: false,
+                  upsert: true,
                   contentType: req.file.mimetype,
               })
               if (error) {
