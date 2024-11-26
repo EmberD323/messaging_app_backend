@@ -162,7 +162,7 @@ profilePost =[
               } else {
                 //add to database
                 await db.createProfile(bio,supabasePath,userid);
-                console.log("done")
+                console.log(data)
 
                 return res.sendStatus(200)
               }
