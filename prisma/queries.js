@@ -132,7 +132,11 @@ async function findSentMessages(authorId) {
             authorId,
         },
         include: {
-            author: true,
+            author: {
+                include: {
+                  profile: true,
+                },
+              },
             receiver: {
                 include: {
                   profile: true,
@@ -148,7 +152,11 @@ async function findReceivedMessages(receiverId) {
             receiverId,
         },
         include: {
-            receiver: true,
+            receiver: {
+                include: {
+                  profile: true,
+                },
+              },
             author: {
                 include: {
                   profile: true,
