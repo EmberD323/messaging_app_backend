@@ -45,7 +45,7 @@ const validateLogIn= [
 const validateProfile= [
   body("bio").trim()
     .escape()
-    .isLength({ min: 1, max: 200 }).withMessage(`Bio must be between 1 and 200 characters.`),
+    .isLength({ max: 200 }).withMessage(`Bio must be no greater than 200 characters.`),
 
 ];
 newUserCreate = [
