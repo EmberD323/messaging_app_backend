@@ -84,7 +84,6 @@ async function createProfile(bio,pictureURL,userId) {
             userId
         }
       })
-      console.log("done query")
     return
 }
 async function updateProfile(bio,pictureURL,id) { 

@@ -149,7 +149,6 @@ profilePost =[
           if(err){
               res.sendStatus(403)
           }else{
-              const userid = authData.user.id;
               const errors = validationResult(req);
               if (!errors.isEmpty()) {
                   return res.status(400).json(errors.array())
@@ -158,7 +157,6 @@ profilePost =[
               const userID = authData.user.id;
               const profile = await db.findProfile(userID)
               let {bio} = req.body;
-              console.log(req.file);
               //if file is null skip
               if(req.file != undefined){
                 const fileName = authData.user.id+"_"+authData.user.username;
@@ -169,6 +167,7 @@ profilePost =[
                     upsert: true,
                     contentType: req.file.mimetype,
                 })
+                .getPublicURL(supabasePath)
                 if (error) {
                   return res.status(400).json(error)
                 } else {
