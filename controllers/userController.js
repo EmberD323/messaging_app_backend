@@ -123,9 +123,11 @@ async function userProfileGet (req, res) {
 
         console.log(profile)
         if(profile == null){
-          res.json(user)
+          res.status(200).json(user)
         }
-        res.json(profile);
+        else{
+          res.status(200).json(profile);
+        }
       }   
   })
 }
