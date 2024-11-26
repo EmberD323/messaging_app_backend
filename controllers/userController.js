@@ -159,7 +159,8 @@ profilePost =[
               let {bio} = req.body;
               //if file is null skip
               if(req.file != undefined){
-                const fileName = authData.user.id+"_"+authData.user.username;
+                console.log(req.file)
+                const fileName = authData.user.id+"_"+authData.user.username+req.file.originalName;
                 const supabasePath = fileName;
                 const { data, error } = await supabase.storage
                 .from('profile_pics')
