@@ -175,9 +175,7 @@ profilePost =[
               }
               //file upload to supabase
               let {bio} = req.body;
-              console.log("bio",bio)
               const fileName = authData.user.id+"_"+authData.user.username;
-              const fileSize =req.file.size;
               const supabasePath = fileName;
               const { data, error } = await supabase.storage
               .from('profile_pics')
@@ -189,9 +187,9 @@ profilePost =[
                 return res.status(400).json(error)
               } else {
                 //add to database
-                return res.status(200).json("added to file")
-                //await db.createProfile(bio,pictureURL,userid);
-                // await db.createFile(fileName,supabasePath,fileSize,req.user,folder)
+                await db.createProfile(bio,supabasePath,userid);
+
+                return res.status(200)
               }
               
           }
