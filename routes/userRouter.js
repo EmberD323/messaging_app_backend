@@ -5,13 +5,15 @@ const verifyToken = require("../middleware/verifyToken");
 
 const multer  = require('multer')
 const storage = multer.memoryStorage()
-const multerFilter = (req,res, file) => {
+const multerFilter = (req, file, cb) => {
+    console.log(file)
+    console.log(file.mimetype)
     if (file.mimetype.startsWith('image')) {
-      return
+      cb(null, true);
     } else {
-        res.status(400).send('Not an image, only images allowed.');
+      cb(null, false);
     }
-};
+  };
 const upload  = multer({ storage: storage,fileFilter:multerFilter })
 
 userRouter.post("/signup", userController.newUserCreate);
