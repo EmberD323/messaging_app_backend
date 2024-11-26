@@ -190,7 +190,6 @@ profilePost =[
                 await db.createProfile(bio,null,userID)
 
               }
-              console.log(data)
                 return res.sendStatus(200)
               
               
