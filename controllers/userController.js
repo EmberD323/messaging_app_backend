@@ -153,9 +153,11 @@ async function fileUploadPost(req, res) {
       })
       if (error) {
         console.log(error)
+        return res.status(400).json(error)
       } else {
         //add to database
-        console.log("added to file")
+        return res.status(400).json("added to file")
+
         // await db.createFile(fileName,supabasePath,fileSize,req.user,folder)
       }
       // return res.redirect("/user/"+folder.folder_name);
