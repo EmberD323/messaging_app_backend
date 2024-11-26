@@ -119,14 +119,12 @@ async function userProfileGet (req, res) {
       }else{
         const userID = authData.user.id;
         const profile = await db.findProfile(userID)
-        const user = authData.user;
-
-        console.log(profile)
         if(profile == null){
-          res.status(200).json(user)
+          const user = authData.user;
+          res.status(200).json({user})
         }
         else{
-          res.status(200).json(profile);
+          res.status(200).json({profile});
         }
       }   
   })
