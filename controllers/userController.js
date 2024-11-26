@@ -75,7 +75,6 @@ logIn = [
       });
     }
     const user = await db.findUserByUsername(req.body.username);
-    console.log(user)
     bcrypt.compare(req.body.password, user.password, async (err,result) => {
       if(result == false){
         const errorsarray = {errors:[{msg:'Incorrect password'}]}
@@ -137,14 +136,10 @@ async function singleProfileGet (req, res) {
 }
 //temp for file upload testing
 async function fileUploadPost(req, res) {
-  console.log("hi")
   jwt.verify(req.token,process.env.SECRET,async (err,authData)=>{
-    console.log("hi2")
     if(err){
         res.sendStatus(403)
     }else{
-      console.log(req.file)
-      console.log(req.body)
       const fileName = authData.user.id+"_"+authData.user.username;
       const fileSize =req.file.size;
       //upload
@@ -156,7 +151,6 @@ async function fileUploadPost(req, res) {
           contentType: req.file.mimetype,
       })
       if (error) {
-        console.log(error)
         return res.status(400).json(error)
       } else {
         //add to database
@@ -179,10 +173,27 @@ profilePost =[
               if (!errors.isEmpty()) {
                   return res.status(400).json(errors.array())
               }
-              let {bio,pictureURL} = req.body;
+              //file upload to supabase
+              let {bio} = req.body;
+              console.log("bio",bio)
+              const fileName = authData.user.id+"_"+authData.user.username;
+              const fileSize =req.file.size;
+              const supabasePath = fileName;
+              const { data, error } = await supabase.storage
+              .from('profile_pics')
+              .upload(supabasePath, req.file.buffer, {
+                  upsert: false,
+                  contentType: req.file.mimetype,
+              })
+              if (error) {
+                return res.status(400).json(error)
+              } else {
+                //add to database
+                return res.status(200).json("added to file")
+                //await db.createProfile(bio,pictureURL,userid);
+                // await db.createFile(fileName,supabasePath,fileSize,req.user,folder)
+              }
               
-              await db.createProfile(bio,pictureURL,userid);
-              res.sendStatus(200);
           }
       })
   }
