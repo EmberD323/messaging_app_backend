@@ -137,7 +137,9 @@ async function singleProfileGet (req, res) {
 }
 //temp for file upload testing
 async function fileUploadPost(req, res) {
+  console.log("hi")
   jwt.verify(req.token,process.env.SECRET,async (err,authData)=>{
+    console.log("hi2")
     if(err){
         res.sendStatus(403)
     }else{
