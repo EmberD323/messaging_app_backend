@@ -146,7 +146,7 @@ async function fileUploadPost(req, res) {
       //upload
       const supabasePath = fileName;
       const { data, error } = await supabase.storage
-      .from('files')
+      .from('profile_pics')
       .upload(supabasePath, req.file.buffer, {
           upsert: false,
           contentType: req.file.mimetype,
