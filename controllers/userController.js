@@ -176,12 +176,11 @@ profilePost =[
                   .getPublicUrl(supabasePath)
                   //check if profile exists
                   if (profile != null){
-                    await db.updateProfile(bio,supabasePath,profile.id)
+                    await db.updateProfile(bio,data.publicUrl,profile.id)
                   }
                   else{
-                    await db.createProfile(bio,supabasePath,userID)
+                    await db.createProfile(bio,data.publicUrl,userID)
                   }
-                  console.log(data)
                   return res.sendStatus(200)
                 }
               }
