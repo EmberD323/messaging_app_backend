@@ -117,8 +117,9 @@ async function userProfileGet (req, res) {
       if(err){
           res.sendStatus(403)
       }else{
-
-        res.json(authData);
+        userID = authData.user.id;
+        const profile = await db.findProfile(userID)
+        res.json(profile);
       }   
   })
 }

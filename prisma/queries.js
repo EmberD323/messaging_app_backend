@@ -65,13 +65,13 @@ async function findAllProfiles() {
     return profiles
 }
 
-async function findProfile(profileid) {
+async function findProfile(userId) {
     const user = await prisma.profile.findUnique({
         include: {
             user:true
         },
         where: {
-          id:profileid,
+          userId,
         },
     })
     return user
