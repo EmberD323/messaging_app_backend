@@ -155,36 +155,44 @@ profilePost =[
                   return res.status(400).json(errors.array())
               }
               //file upload to supabase
+              const userID = authData.user.id;
+              const profile = await db.findProfile(userID)
               let {bio} = req.body;
               console.log(req.file);
               //if file is null skip
-              
-              const fileName = authData.user.id+"_"+authData.user.username;
-              const supabasePath = fileName;
-              const { data, error } = await supabase.storage
-              .from('profile_pics')
-              .upload(supabasePath, req.file.buffer, {
-                  upsert: true,
-                  contentType: req.file.mimetype,
-              })
-              if (error) {
-                return res.status(400).json(error)
-              } else {
-                //check if profile exists
-                const userID = authData.user.id;
-                const profile = await db.findProfile(userID)
-                if (profile != null){
-                  //user existing file if null
-                  await db.updateProfile(bio,supabasePath,profile.id)
+              if(req.file != undefined){
+                const fileName = authData.user.id+"_"+authData.user.username;
+                const supabasePath = fileName;
+                const { data, error } = await supabase.storage
+                .from('profile_pics')
+                .upload(supabasePath, req.file.buffer, {
+                    upsert: true,
+                    contentType: req.file.mimetype,
+                })
+                if (error) {
+                  return res.status(400).json(error)
+                } else {
+                  //check if profile exists
+                  if (profile != null){
+                    await db.updateProfile(bio,supabasePath,profile.id)
+                  }
+                  else{
+                    await db.createProfile(bio,supabasePath,userID)
+                  }
+                  console.log(data)
+                  return res.sendStatus(200)
                 }
-                else{
-                  await db.createProfile(bio,supabasePath,userID)
-                }
-                //add to database
-                console.log(data)
-
-                return res.sendStatus(200)
               }
+              if(profile != null){
+                await db.updateProfile(bio,profile.pictureURL,profile.id)
+              }
+              else{
+                await db.createProfile(bio,null,userID)
+
+              }
+              console.log(data)
+                return res.sendStatus(200)
+              
               
           }
       })

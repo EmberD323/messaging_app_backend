@@ -87,7 +87,18 @@ async function createProfile(bio,pictureURL,userId) {
       console.log("done query")
     return
 }
-async function updateProfile(bio,pictureURL,id) {
+async function updateProfile(bio,pictureURL,id) { 
+    if(pictureURL == null){
+        await prisma.profile.update({
+            where: {
+                id,
+            },
+            data: {
+                bio,
+            }
+          })
+        return
+    }
     await prisma.profile.update({
         where: {
             id,
