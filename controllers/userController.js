@@ -156,6 +156,9 @@ profilePost =[
               }
               //file upload to supabase
               let {bio} = req.body;
+              console.log(req.file);
+              //if file is null skip
+              
               const fileName = authData.user.id+"_"+authData.user.username;
               const supabasePath = fileName;
               const { data, error } = await supabase.storage
@@ -171,6 +174,7 @@ profilePost =[
                 const userID = authData.user.id;
                 const profile = await db.findProfile(userID)
                 if (profile != null){
+                  //user existing file if null
                   await db.updateProfile(bio,supabasePath,profile.id)
                 }
                 else{
