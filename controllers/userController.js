@@ -170,9 +170,10 @@ profilePost =[
                 if (error) {
                   return res.status(400).json(error)
                 } else {
-                const { data } = supabase.storage
-                .from('profile_pics')
-                .getPublicUrl('folder/avatar1.png')
+                  //get url
+                  const { data } = supabase.storage
+                  .from('profile_pics')
+                  .getPublicUrl(supabasePath)
                   //check if profile exists
                   if (profile != null){
                     await db.updateProfile(bio,supabasePath,profile.id)
