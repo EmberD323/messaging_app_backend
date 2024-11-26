@@ -4,6 +4,8 @@ const tools = require("./modules/tools.js");
 const { body, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const {createClient} = require("@supabase/supabase-js")
+const supabase = createClient("https://rrkiqsthcekarglxlxcn.supabase.co", process.env.SUPABASE_KEY)
 
 const validateSignUp= [
     body("first_name").trim()
@@ -133,6 +135,32 @@ async function singleProfileGet (req, res) {
       }   
   })
 }
+//temp for file upload testing
+async function fileUploadPost(req, res) {
+  jwt.verify(req.token,process.env.SECRET,async (err,authData)=>{
+    if(err){
+        res.sendStatus(403)
+    }else{
+      const fileName = req.file.originalname+authData.user.id+authData.user.username;
+      const fileSize =req.file.size;
+      //upload
+      const supabasePath = fileName;
+      const { data, error } = await supabase.storage
+      .from('files')
+      .upload(supabasePath, req.file.buffer, {
+          upsert: false,
+          contentType: req.file.mimetype,
+      })
+      if (error) {
+        console.log(error)
+      } else {
+        //add to database
+        console.log("added to file")
+        // await db.createFile(fileName,supabasePath,fileSize,req.user,folder)
+      }
+      // return res.redirect("/user/"+folder.folder_name);
+    }})
+}
 profilePost =[
   validateProfile,
   async function (req, res) {
@@ -187,6 +215,7 @@ module.exports = {
     userProfileGet,
     singleProfileGet,
     profilePost,
+    fileUploadPost,
     profileUpdate,
     
 };
