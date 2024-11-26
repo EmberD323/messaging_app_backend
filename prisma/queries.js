@@ -87,7 +87,7 @@ async function createProfile(bio,pictureURL,userId) {
       console.log("done query")
     return
 }
-async function udpateProfile(bio,pictureURL,id) {
+async function updateProfile(bio,pictureURL,id) {
     await prisma.profile.update({
         where: {
             id,
@@ -98,6 +98,14 @@ async function udpateProfile(bio,pictureURL,id) {
         }
       })
     return
+}
+async function deleteProfile(id) {
+    await prisma.profile.delete({
+        where: {
+          id
+        },
+    })
+    return 
 }
 async function findAllMessages() {
     const messages = await prisma.message.findMany({
@@ -188,11 +196,12 @@ module.exports = {
     findAllProfiles,
     findProfile,
     createProfile,
-    udpateProfile,
+    updateProfile,
     findAllMessages,
     findSentMessages,
     findReceivedMessages,
     createMessage,
     updateMessage,
-    deleteMessage
+    deleteMessage,
+    deleteProfile
 }

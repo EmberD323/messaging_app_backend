@@ -167,8 +167,16 @@ profilePost =[
               if (error) {
                 return res.status(400).json(error)
               } else {
+                //check if profile exists
+                const userID = authData.user.id;
+                const profile = await db.findProfile(userID)
+                if (profile != null){
+                  await db.updateProfile(bio,supabasePath,profile.id)
+                }
+                else{
+                  await db.createProfile(bio,supabasePath,userID)
+                }
                 //add to database
-                await db.createProfile(bio,supabasePath,userid);
                 console.log(data)
 
                 return res.sendStatus(200)
