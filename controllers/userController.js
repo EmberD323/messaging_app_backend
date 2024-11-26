@@ -167,10 +167,12 @@ profilePost =[
                     upsert: true,
                     contentType: req.file.mimetype,
                 })
-                .getPublicURL(supabasePath)
                 if (error) {
                   return res.status(400).json(error)
                 } else {
+                const { data } = supabase.storage
+                .from('profile_pics')
+                .getPublicUrl('folder/avatar1.png')
                   //check if profile exists
                   if (profile != null){
                     await db.updateProfile(bio,supabasePath,profile.id)
