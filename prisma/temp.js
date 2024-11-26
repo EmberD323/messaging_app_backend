@@ -11,10 +11,10 @@ async function main() {
   //       profile:true
   //   }
   // })
- await prisma.message.deleteMany({
+ await prisma.profile.deleteMany({
   })
-  await prisma.user.deleteMany({
-  })
+  // await prisma.user.deleteMany({
+  // })
     
 }
 
