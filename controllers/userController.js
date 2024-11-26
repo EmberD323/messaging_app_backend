@@ -134,33 +134,7 @@ async function singleProfileGet (req, res) {
       }   
   })
 }
-//temp for file upload testing
-async function fileUploadPost(req, res) {
-  jwt.verify(req.token,process.env.SECRET,async (err,authData)=>{
-    if(err){
-        res.sendStatus(403)
-    }else{
-      const fileName = authData.user.id+"_"+authData.user.username;
-      const fileSize =req.file.size;
-      //upload
-      const supabasePath = fileName;
-      const { data, error } = await supabase.storage
-      .from('profile_pics')
-      .upload(supabasePath, req.file.buffer, {
-          upsert: false,
-          contentType: req.file.mimetype,
-      })
-      if (error) {
-        return res.status(400).json(error)
-      } else {
-        //add to database
-        return res.status(200).json("added to file")
-
-        // await db.createFile(fileName,supabasePath,fileSize,req.user,folder)
-      }
-      // return res.redirect("/user/"+folder.folder_name);
-    }})
-}
+   
 profilePost =[
   validateProfile,
   async function (req, res) {
@@ -188,6 +162,7 @@ profilePost =[
               } else {
                 //add to database
                 await db.createProfile(bio,supabasePath,userid);
+                console.log("done")
 
                 return res.status(200)
               }
@@ -230,7 +205,6 @@ module.exports = {
     userProfileGet,
     singleProfileGet,
     profilePost,
-    fileUploadPost,
     profileUpdate,
     
 };
