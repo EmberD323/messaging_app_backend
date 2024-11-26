@@ -141,6 +141,8 @@ async function fileUploadPost(req, res) {
     if(err){
         res.sendStatus(403)
     }else{
+      console.log(req.file)
+      console.log(req.body)
       const fileName = authData.user.id+"_"+authData.user.username;
       const fileSize =req.file.size;
       //upload
