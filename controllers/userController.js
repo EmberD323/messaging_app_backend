@@ -234,7 +234,8 @@ async function searchByUsername (req, res) {
         const username = req.params.username;
         const user = await db.findUserByUsername(username)
         if(user == null){
-          res.status(400).json("User doesnt exist")
+          let errors = [{msg:"User doesnt exist"}]
+          res.status(400).json(errors)
         }
         else{
           res.status(200).json(user);
