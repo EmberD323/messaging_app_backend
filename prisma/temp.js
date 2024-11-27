@@ -10,8 +10,8 @@ async function main() {
   //   }
   // })
   // console.log(users)
- await prisma.profile.deleteMany({
-  })
+//  await prisma.profile.deleteMany({
+//   })
   // await prisma.user.deleteMany({
   // })
     

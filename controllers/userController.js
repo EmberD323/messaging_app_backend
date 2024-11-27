@@ -112,6 +112,24 @@ async function userDelete (req, res) {
       }   
   })
 }
+async function userDelete (req, res) {
+  jwt.verify(req.token,process.env.SECRET,async (err,authData)=>{
+      if(err){
+          res.sendStatus(403)
+      }else{
+        const userid = authData.user.id;
+        const user = await db.findUserById(userid);
+        if (!user) {
+          res.status(400).send('User doesnt exist');
+        }
+        else{
+          await db.deleteUser(userid);
+          res.sendStatus(200);
+        }
+        
+      }   
+  })
+}
 async function userProfileGet (req, res) {
   jwt.verify(req.token,process.env.SECRET,async (err,authData)=>{
       if(err){
@@ -135,8 +153,8 @@ async function singleProfileGet (req, res) {
       if(err){
           res.sendStatus(403)
       }else{
-        const profileid = Number(req.params.profileid);
-        const profile = await db.findProfile(profileid);
+        const userid = Number(req.params.userid);
+        const profile = await db.findProfile(userid);
         res.json(profile);
       }   
   })
