@@ -155,7 +155,13 @@ async function singleProfileGet (req, res) {
       }else{
         const userid = Number(req.params.userid);
         const profile = await db.findProfile(userid);
-        res.json(profile);
+        if(profile == null){
+          const user = await db.findUserById(userid);
+          res.status(200).json({user})
+        }
+        else{
+          res.status(200).json({profile});
+        }
       }   
   })
 }
