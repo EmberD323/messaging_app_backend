@@ -226,6 +226,22 @@ profileUpdate =[
   }
 ]
 
+async function searchByUsername (req, res) {
+  jwt.verify(req.token,process.env.SECRET,async (err,authData)=>{
+      if(err){
+          res.sendStatus(403)
+      }else{
+        const username = req.params.username;
+        const user = await db.findUserByUsername(username)
+        if(user == null){
+          res.status(400).json("User doesnt exist")
+        }
+        else{
+          res.status(200).json(user);
+        }
+      }   
+  })
+}
 module.exports = {
     newUserCreate,
     logIn,
@@ -234,5 +250,6 @@ module.exports = {
     singleProfileGet,
     profilePost,
     profileUpdate,
+    searchByUsername
     
 };

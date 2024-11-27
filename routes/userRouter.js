@@ -17,6 +17,8 @@ const upload  = multer({ storage: storage,fileFilter:multerFilter })
 userRouter.post("/signup", userController.newUserCreate);
 userRouter.post("/login", userController.logIn);
 userRouter.delete("/users/:userid",verifyToken, userController.userDelete);
+userRouter.get("/users/:username",verifyToken, userController.searchByUsername);
+
 
 
 userRouter.get("/profile",verifyToken, userController.userProfileGet);
