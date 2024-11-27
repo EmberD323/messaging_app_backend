@@ -169,7 +169,11 @@ async function findReceivedMessages(receiverId) {
 async function createMessage(text,receiverId,authorId) {
     const message = await prisma.message.createManyAndReturn({
         include: {
-            author: true,
+            author: {
+                include: {
+                  profile: true,
+                },
+              },
             receiver: {
                 include: {
                   profile: true,
