@@ -35,7 +35,7 @@ async function sentMessagesGet (req, res) {
         }else{
           const authorid = authData.user.id;
           const messages = await db.findSentMessages(authorid);
-          res.json(messages);
+          res.json({messages,user:authData.user});
         }   
     })
 }
@@ -46,7 +46,7 @@ async function receivedMessagesGet (req, res) {
         }else{
           const receiverid = authData.user.id;
           const messages = await db.findReceivedMessages(receiverid);
-          res.json(messages);
+          res.json({messages,user:authData.user});
         }   
     })
 }
