@@ -4,14 +4,24 @@ const prisma = new PrismaClient()
 
 async function main() {
   //all users
-  // const users = await prisma.user.findMany({
-  //   include: {
-  //       profile:true
-  //   }
-  // })
-  // console.log(users)
-//  await prisma.profile.deleteMany({
-//   })
+  
+ await prisma.message.deleteMany({
+  where: {
+    authorId:7
+    }
+  })
+  await prisma.message.deleteMany({
+    where: {
+      receiverId:7
+      }
+    })
+
+  const users = await prisma.user.findMany({
+    include: {
+        profile:true
+    }
+  })
+  console.log(users)
   // await prisma.user.deleteMany({
   // })
     

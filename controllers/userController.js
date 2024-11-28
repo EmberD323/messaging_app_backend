@@ -9,11 +9,9 @@ const supabase = createClient("https://rrkiqsthcekarglxlxcn.supabase.co", proces
 
 const validateSignUp= [
     body("first_name").trim()
-      .escape()
       .isAlpha().withMessage(`First name can only be letters`)
       .isLength({ min: 1, max: 15 }).withMessage(`First name must be between 1 and 15 characters.`),
     body("last_name").trim()
-        .escape()
         .isAlpha().withMessage(`Last name can only be letters`)
         .isLength({ min: 1, max: 15 }).withMessage(`Last name must be between 1 and 15 characters.`),
     body("username")
@@ -44,7 +42,6 @@ const validateLogIn= [
 ];
 const validateProfile= [
   body("bio").trim()
-    .escape()
     .isLength({ max: 200 }).withMessage(`Bio must be no greater than 200 characters.`),
 
 ];

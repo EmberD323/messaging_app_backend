@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 
 const validateMessage= [
     body("text").trim()
-      .escape()
       .isLength({ min: 1 }).withMessage(`Message must be atleast 1 character long.`),
     
 ];
