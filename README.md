@@ -1,17 +1,22 @@
-# Node & Express Template
-npm install: prisma, @prisma/client @quixo3/prisma-session-store bcryptjs body-parser cors dotenv
-ejs express express-session express-validator jsonwebtoken passport passport-jwt passport-local pg
-supertest --save-dev
+# blog-api-backend
 
-run app
-1)create .env with database url
-2) npx prisma migrate dev --name init
-3) node --watch app.js
+This is the backend for for a messaging application.
 
-psql
-CREATE DATABASE name;
-\l
-\c dbname
+# Deployed
+- https://messagingemberd232.netlify.app/
+# Github
+- Frontend:https://github.com/EmberD323/messaging_app_frontend
 
-deployed:https://messaging-app-backend-a915.onrender.com/
+## Features
+- User authentication
+- CRUD operations
+- API for posts and comments
 
+## Tech Stack
+
+- **Framework**:  Node.js with Express
+- **Database**: PostgreSQL with Prisma ORM, stored on railway.
+- **Authentication**: JWT
+- **Validation**: express validation
+- **Password Hashing**: bcryptjs
+- **Supabase**:Image cloud storage.
